@@ -28,10 +28,11 @@
  */
 
 /* Uncomment for RSA signature support */
-/* #define MCUBOOT_SIGN_RSA */
+//#define MCUBOOT_SIGN_RSA
+//#define MCUBOOT_SIGN_RSA_LEN 2048
 
 /* Uncomment for ECDSA signatures using curve P-256. */
-/* #define MCUBOOT_SIGN_EC256 */
+#define MCUBOOT_SIGN_EC256
 
 
 /*
@@ -47,7 +48,7 @@
  */
 
 /* Uncomment to enable the overwrite-only code path. */
-/* #define MCUBOOT_OVERWRITE_ONLY */
+//#define MCUBOOT_OVERWRITE_ONLY
 
 #ifdef MCUBOOT_OVERWRITE_ONLY
 /* Uncomment to only erase and overwrite those primary slot sectors needed
@@ -72,9 +73,9 @@
  */
 
 /* Uncomment to use ARM's mbedTLS cryptographic primitives */
-#define MCUBOOT_USE_MBED_TLS */
+//#define MCUBOOT_USE_MBED_TLS
 /* Uncomment to use Tinycrypt's. */
-/* #define MCUBOOT_USE_TINYCRYPT */
+#define MCUBOOT_USE_TINYCRYPT
 
 /*
  * Always check the signature of the image in the primary slot before booting,
@@ -89,11 +90,11 @@
 
 /* Uncomment if your flash map API supports flash_area_get_sectors().
  * See the flash APIs for more details. */
-/* #define MCUBOOT_USE_FLASH_AREA_GET_SECTORS */
+//#define MCUBOOT_USE_FLASH_AREA_GET_SECTORS
 
 /* Default maximum number of flash sectors per image slot; change
  * as desirable. */
-#define MCUBOOT_MAX_IMG_SECTORS 128
+#define MCUBOOT_MAX_IMG_SECTORS 40
 
 /* Default number of separately updateable images; change in case of
  * multiple images. */
@@ -143,7 +144,7 @@
  * enable the watchdog (if required)!
  */
  #define MCUBOOT_WATCHDOG_FEED() \
-         do {} while (0)
+         do { /* Feed watchdog */ } while (0)
  
 
 #endif /* __MCUBOOT_CONFIG_H__ */
