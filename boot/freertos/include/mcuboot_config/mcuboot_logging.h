@@ -28,6 +28,8 @@
 #define MCUBOOT_LOG_LEVEL_INFO     3
 #define MCUBOOT_LOG_LEVEL_DEBUG    4
 
+#define MCUBOOT_LOG_LEVEL MCUBOOT_LOG_LEVEL_DEBUG
+
 /*
  * The compiled log level determines the maximum level that can be
  * printed.
@@ -37,47 +39,42 @@
 #endif
 
 #if MCUBOOT_LOG_LEVEL == MCUBOOT_LOG_LEVEL_OFF
-#define MBED_CONF_MBED_TRACE_ENABLE 0
 #else
-#define MBED_CONF_MBED_TRACE_ENABLE 1
 #define MCUBOOT_HAVE_LOGGING
 #endif
 
-#if MCUBOOT_LOG_LEVEL == MCUBOOT_LOG_LEVEL_ERROR
-#define MBED_TRACE_MAX_LEVEL TRACE_LEVEL_ERROR
-#elif MCUBOOT_LOG_LEVEL == MCUBOOT_LOG_LEVEL_WARNING
-#define MBED_TRACE_MAX_LEVEL TRACE_LEVEL_WARN
-#elif MCUBOOT_LOG_LEVEL == MCUBOOT_LOG_LEVEL_INFO
-#define MBED_TRACE_MAX_LEVEL TRACE_LEVEL_INFO
-#elif MCUBOOT_LOG_LEVEL == MCUBOOT_LOG_LEVEL_DEBUG
-#define MBED_TRACE_MAX_LEVEL TRACE_LEVEL_DEBUG
-#endif
 
 #include "bootutil/ignore.h"
+#include <stdint.h>
+
+void vLogError( const char * pcFormat, ... );
+void vLogWarning( const char * pcFormat, ... );
+void vLogInfo( const char * pcFormat, ... );
+void vLogDebug( const char * pcFormat, ... );
 
 #define MCUBOOT_LOG_MODULE_DECLARE(domain)  /* ignore */
 #define MCUBOOT_LOG_MODULE_REGISTER(domain) /* ignore */
 
 #if MCUBOOT_LOG_LEVEL >= MCUBOOT_LOG_LEVEL_ERROR
-#define MCUBOOT_LOG_ERR tr_error
+#define MCUBOOT_LOG_ERR vLogError
 #else
 #define MCUBOOT_LOG_ERR(...) IGNORE(__VA_ARGS__)
 #endif
 
 #if MCUBOOT_LOG_LEVEL >= MCUBOOT_LOG_LEVEL_WARNING
-#define MCUBOOT_LOG_WRN tr_warn
+#define MCUBOOT_LOG_WRN vLogWarning
 #else
 #define MCUBOOT_LOG_WRN(...) IGNORE(__VA_ARGS__)
 #endif
 
 #if MCUBOOT_LOG_LEVEL >= MCUBOOT_LOG_LEVEL_INFO
-#define MCUBOOT_LOG_INF tr_info
+#define MCUBOOT_LOG_INF vLogInfo
 #else
 #define MCUBOOT_LOG_INF(...) IGNORE(__VA_ARGS__)
 #endif
 
 #if MCUBOOT_LOG_LEVEL >= MCUBOOT_LOG_LEVEL_DEBUG
-#define MCUBOOT_LOG_DBG tr_debug
+#define MCUBOOT_LOG_DBG vLogDebug
 #else
 #define MCUBOOT_LOG_DBG(...) IGNORE(__VA_ARGS__)
 #endif

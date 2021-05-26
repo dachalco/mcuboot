@@ -90,11 +90,11 @@
 
 /* Uncomment if your flash map API supports flash_area_get_sectors().
  * See the flash APIs for more details. */
-//#define MCUBOOT_USE_FLASH_AREA_GET_SECTORS
+#define MCUBOOT_USE_FLASH_AREA_GET_SECTORS
 
 /* Default maximum number of flash sectors per image slot; change
  * as desirable. */
-#define MCUBOOT_MAX_IMG_SECTORS 40
+#define MCUBOOT_MAX_IMG_SECTORS 0x24
 
 /* Default number of separately updateable images; change in case of
  * multiple images. */
